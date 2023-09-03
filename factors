@@ -1,37 +1,29 @@
+#!/usr/bin/python3
 import sys
 
-def factorize_composite(number):
-    factors = []
-    
-    while number % 2 == 0:
-        factors.append(2)
-        number //= 2
-    
-    for i in range(3, int(number**0.5) + 1, 2):
-        while number % i == 0:
-            factors.append(i)
-            number //= i
-    
-    if number > 1:
-        factors.append(number)
-    
-    return factors
 
 def fc():
+    """
+    function fc to search file to convert number and format n=p*q
+    """
     try:
-        revfile = sys.argv[1]
-        with open(revfile) as f:
-            for revnumber in f:
-                revnumber = int(revnumber)
-                if revnumber < 2:
-                    print("{} is not factorizable.".format(revnumber))
-                else:
-                    factors = factorize_composite(revnumber)
-                    factors_str = " * ".join(map(str, factors))
-                    print("{} = {}".format(revnumber, factors_str))
-    except FileNotFoundError:
-        print("File not found.")
-    except IndexError:
+        myfile = sys.argv[1]
+        with open(myfile) as f:
+            for factnumber in f:
+                factnumber = int(factnumber)
+                if factnumber % 2 == 0:
+                        print("{}={}*{}".format(factnumber, factnumber // 2, 2))
+                        continue
+                i = 3
+                while i < factnumber // 2:
+                    if factnumber % i == 0:
+                        print("{}={}*{}".format(factnumber, factnumber // i, i))
+                        break
+                    i = i + 2
+                if i == (factnumber // 2) + 1:
+                    print("{}={}*{}".format(factnumber, factnumber, 1))
+    except (IndexError):
+        pass
+
 
 fc()
-
